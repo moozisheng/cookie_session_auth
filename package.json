@@ -1,0 +1,19 @@
+{
+  "name": "cookie-session",
+  "version": "1.0.0",
+  "description": "koa + cookie + session 实现的服务端鉴权",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "koa": "^2.13.0",
+    "koa-bodyparser": "^4.3.0",
+    "koa-router": "^9.4.0",
+    "koa-session": "^6.1.0",
+    "koa-static": "^5.0.0",
+    "koa2-cors": "^2.0.6"
+  }
+}

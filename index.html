@@ -1,0 +1,70 @@
+<html>
+
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <!-- 引入样式 -->
+  <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+  <!-- 引入组件库 -->
+  <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <el-row style="margin-top: 15px ;">
+      <el-input v-model="username" placeholder="请输入用户名"></el-input>
+    </el-row>
+    <el-row style="margin-top: 15px ;">
+      <el-input v-model="password" show-password placeholder="请输入密码"></el-input>
+    </el-row>
+
+    <el-row style="margin-top: 15px ;">
+      <el-button type="primary" plain v-on:click="login" size="small">Login</el-button>
+      <el-button type="primary" plain v-on:click="logout" size="small">Logout</el-button>
+      <el-button type="primary" plain v-on:click="getUser" size="small">GetUser</el-button>
+      <el-button plain onclick="document.getElementById('log').innerHTML = ''" size="small">Clear Log</el-button>
+    </el-row>
+  </div>
+  <h6 id="log"></h6>
+  </div>
+
+  <style>
+    .el-input {
+      width: 400px;
+    }
+  </style>
+
+  <script>
+    // axios.defaults.baseURL = 'http://localhost:3000'
+    axios.defaults.withCredentials = true
+    axios.interceptors.response.use(
+      response => {
+        document.getElementById('log').append(JSON.stringify(response.data))
+        return response;
+      }
+    );
+    var app = new Vue({
+      el: '#app',
+      data: {
+        username: 'test',
+        password: 'test'
+      },
+      methods: {
+        async login() {
+          await axios.post('/login', {
+            username: this.username,
+            password: this.password
+          })
+        },
+        async logout() {
+          await axios.post('/logout')
+        },
+        async getUser() {
+          await axios.get('/getUser')
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>
